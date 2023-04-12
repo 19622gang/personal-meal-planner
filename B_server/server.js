@@ -1,7 +1,8 @@
 // required packages
 require('dotenv').config()
 const express = require('express')
-const mealRoutes = require('./routes/meals')
+const reminderRoutes = require('./routes/reminder')
+const mongoose = require("mongoose")
 
 // Initializing express app
 const app = express()
@@ -18,9 +19,16 @@ app.use((req, res, next) =>{
 app.get('/', (req, res) => {
   res.json({mssg: 'Hello, world!'})
 });
-app.use('/api/meals', mealRoutes)
+app.use('/api/reminders', reminderRoutes)
 
-// listening to requests
-app.listen(process.env.PORT, () => {
-  console.log('Server is listening on port 3000!')
-});
+// connect to DB
+mongoose.connect(process.env.MONGO_URI)
+  .then(()=>{
+    // listening to requests
+    app.listen(process.env.PORT, () => {
+      console.log('Connected to DB & Server is listening on port 3000!')
+    });
+  })
+  .catch((error) => {
+    console.log(error)
+  })
