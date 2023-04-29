@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { RemindersContextProvider } from './context/ReminderContext';
+
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RemindersContextProvider>
+      <App />
+    </RemindersContextProvider>
   </React.StrictMode>
 );
 
