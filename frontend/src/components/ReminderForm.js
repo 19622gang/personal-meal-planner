@@ -1,7 +1,9 @@
 import { useState } from "react"
+import { useReminderContext } from "../hooks/useRemindersContext"
 
 const ReminderForm = () => {
 
+    const { dispatch } = useReminderContext()
     const [title, setTitle] = useState('')
     const [load, setLoad] = useState('')
     const [reps, setReps] = useState('')
@@ -31,6 +33,7 @@ const ReminderForm = () => {
             setReps('')
             setError(null)
             console.log('New reminder added', json)
+            dispatch({type: "CREATE_REMINDER", payload: json})
         }
     }
 
